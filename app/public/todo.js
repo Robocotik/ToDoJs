@@ -42,7 +42,9 @@ function updateTodo(index, description) {
 
 function renderTodoInReadMode(todo) {
   const li = document.createElement('li');
+  li.classList.add('TODO-item');
   const span = document.createElement('span');
+  span.classList.add('TODO-item__span');
   span.textContent = todo;
   span.addEventListener('dblclick', () => {
     const idx = TODO.indexOf(todo);

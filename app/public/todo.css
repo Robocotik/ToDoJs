@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.todo__container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.TODO-list {
+  list-style: none;
+  margin-block-start: 0rem;
+}
+
+h1{
+  margin-inline: auto;
+  text-align: center;
+
+}
+
+.TODO-item {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-block: 0.2rem;
+}
+
+.TODO-item__span {
+  width: 10rem;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+  min-height: 100dvh;
+}
