@@ -3,12 +3,11 @@ import ListItemRead from '../listItemRead/listItemRead.js';
 
 export default class TodoList extends Component {
   constructor(parent, props) {
-    super(parent, props, 'todoList');
-    this.countOfItems = 0;
+    super(parent, props, 'todoList', 0);
     this.addTodoButton = document.getElementById('add-todo-btn');
     this.addTodoInput = document.getElementById('todo-input');
   }
-  
+
   get self() {
     return document.querySelector(`#TODO-list-${this.props.id}`);
   }
@@ -28,9 +27,9 @@ export default class TodoList extends Component {
   }
 
   addTodo() {
-    this.countOfItems++;
+    this.state++;
     const listItemRead = new ListItemRead(this.self, {
-      id: this.countOfItems,
+      id: this.get_state,
       text: this.addTodoInput.value,
     });
     listItemRead.render();
@@ -46,7 +45,7 @@ export default class TodoList extends Component {
     this.props.items.forEach(data => {
       const listItemRead = new ListItemRead(this.self, data);
       listItemRead.render();
-      this.countOfItems++;
+      this.state++;
     });
   }
 }

@@ -6,10 +6,15 @@
  * @param {string} templateName - Название шаблона компонента(hbs).
  */
 export default class Component {
-  constructor(parent, props, templateName) {
+  constructor(parent, props, templateName, state = {}) {
     this.parent = parent;
     this.props = props;
     this.templateName = templateName;
+    this.state = state;
+  }
+
+  get get_state() {
+    return this.state;
   }
   
   get self() {
