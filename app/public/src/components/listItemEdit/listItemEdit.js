@@ -9,11 +9,26 @@ export default class ListItemEdit extends Component {
   get self() {
     return document.querySelector(`#listItemEdit-${this.props.id}`);
   }
+  get saveBtn() {
+    return document.getElementById('todo-input');
+  }
+
+  get cancelBtn() {
+    return document.getElementById(`listItemEdit-${this.props.id}-cancel`);
+  }
+
+  get input() {
+    return document.getElementById(`listItemEdit-${this.props.id}-input`);
+  }
 
   addEventListeners() {
     this.saveBtn.addEventListener('click', () => {
       const val = this.input.value;
-      const listItemRead = new ListItemRead(this.parent, {id: this.props.id, text: val}, this.state);
+      const listItemRead = new ListItemRead(
+        this.parent,
+        {id: this.props.id, text: val},
+        this.state,
+      );
       listItemRead.render();
       this.self.replaceWith(listItemRead.self);
     });
@@ -24,7 +39,7 @@ export default class ListItemEdit extends Component {
         const listItemRead = new ListItemRead(
           this.parent,
           {id: this.props.id, text: val},
-          this.state
+          this.state,
         );
         listItemRead.render();
         this.self.replaceWith(listItemRead.self);
@@ -40,9 +55,6 @@ export default class ListItemEdit extends Component {
 
   render() {
     this.parent.insertAdjacentHTML('beforeend', this.html);
-    this.saveBtn = document.getElementById(`listItemEdit-${this.props.id}-save`);
-    this.cancelBtn = document.getElementById(`listItemEdit-${this.props.id}-cancel`);
-    this.input = document.getElementById(`listItemEdit-${this.props.id}-input`);
     this.input.style.color = this.state;
     this.addEventListeners();
   }

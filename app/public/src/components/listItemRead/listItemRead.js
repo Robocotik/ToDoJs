@@ -8,6 +8,14 @@ export default class ListItemRead extends Component {
     return document.querySelector(`#listItemRead-${this.props.id}`);
   }
 
+  get span() {
+    return document.querySelector('#TODO-item__span-' + this.props.id);
+  }
+
+  get deleteButton() {
+    return document.getElementById(`listItemRead-${this.props.id}-done`);
+  }
+
   removeTodo() {
     this.self.remove();
   }
@@ -30,12 +38,13 @@ export default class ListItemRead extends Component {
 
   render() {
     this.parent.insertAdjacentHTML('beforeend', this.html);
-    this.span = this.self.querySelector('.TODO-item__span-' + this.props.id);
-    this.state = this.state
-      ? this.state
-      : `rgb(${this.randomNumber(256)}, ${this.randomNumber(256)}, ${this.randomNumber(256)})`;
+    this.setState(
+      this.state.length > 0
+        ? this.state
+        : `rgb(${this.randomNumber(256)}, ${this.randomNumber(256)}, ${this.randomNumber(256)})`,
+    );
+    
     this.span.style.color = this.state;
-    this.deleteButton = document.getElementById(`listItemRead-${this.props.id}-done`);
     this.addEventListeners();
   }
 }

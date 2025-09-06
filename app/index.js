@@ -3,7 +3,7 @@ import TodoList from './public/src/components/todoList/todoList.js';
 import Container from './public/src/components/container/container.js';
 
 const root = document.getElementById('root');
-const container = new Container(root, {});
+const container = new Container(root);
 container.render();
 
 const todoContainer = document.getElementById('todo__container');
