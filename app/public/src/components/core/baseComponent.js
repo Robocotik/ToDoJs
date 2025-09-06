@@ -4,6 +4,7 @@
  * @param {HTMLElement} parent - Родительский элемент, в который будет вставлен компонент.
  * @param {Object} props - Объект с конфигурацией компонента.
  * @param {string} templateName - Название шаблона компонента(hbs).
+ * @param {any} state - Состояние компонента.
  */
 export default class Component {
   constructor(parent, props, templateName, state = undefined) {
