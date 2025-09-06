@@ -10,7 +10,7 @@ export default class ListItemEdit extends Component {
     return document.querySelector(`#listItemEdit-${this.props.id}`);
   }
   get saveBtn() {
-    return document.getElementById('todo-input');
+    return document.getElementById(`listItemEdit-${this.props.id}-save`);
   }
 
   get cancelBtn() {
@@ -47,7 +47,7 @@ export default class ListItemEdit extends Component {
     });
 
     this.cancelBtn.addEventListener('click', () => {
-      const listItemRead = new ListItemRead(this.parent, this.props);
+      const listItemRead = new ListItemRead(this.parent, this.props, this.state);
       listItemRead.render();
       this.self.replaceWith(listItemRead.self);
     });
@@ -55,7 +55,7 @@ export default class ListItemEdit extends Component {
 
   render() {
     this.parent.insertAdjacentHTML('beforeend', this.html);
-    this.input.style.color = this.state;
+    this.input.style.color = this.state.color;
     this.addEventListeners();
   }
 }

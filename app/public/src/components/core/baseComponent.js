@@ -21,14 +21,14 @@ export default class Component {
   }
 
   setState(newState) {
-  this.#state = newState;
-}
+    this.#state = newState;
+  }
 
   get self() {
     return document.getElementById(this.props.id);
   }
 
   get html() {
-    return Handlebars.templates[`${this.templateName}.hbs`](this.props);
+    return Handlebars.templates[`${this.templateName}.hbs`]({...this.props, ...this.state});
   }
 }

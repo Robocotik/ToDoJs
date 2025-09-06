@@ -3,7 +3,7 @@ import ListItemRead from '../listItemRead/listItemRead.js';
 
 export default class TodoList extends Component {
   constructor(parent, props) {
-    super(parent, props, 'todoList', 0);
+    super(parent, props, 'todoList', {counter: 0});
   }
 
   get self() {
@@ -33,14 +33,18 @@ export default class TodoList extends Component {
   }
 
   addTodo() {
-    this.setState(this.state + 1);
+    this.setState({counter: this.state.counter + 1});
     const listItemRead = new ListItemRead(this.self, {
-      id: this.state,
+      id: this.state.counter,
       text: this.addTodoInput.value,
     });
     listItemRead.render();
     this.addTodoInput.value = '';
     this.addTodoButton.disabled = true;
+  }
+
+  randomNumber(max) {
+    return Math.floor(Math.random() * max);
   }
 
   render() {
@@ -49,9 +53,13 @@ export default class TodoList extends Component {
     this.addEventListeners();
 
     this.props.items.forEach(data => {
-      const listItemRead = new ListItemRead(this.self, data);
+      const listItemRead = new ListItemRead(this.self, data, {
+        color: `rgb(${this.randomNumber(256)}, ${this.randomNumber(256)}, ${this.randomNumber(
+          256,
+        )})`,
+      });
       listItemRead.render();
-      this.setState(this.state + 1);
+      this.setState({counter: this.state.counter + 1});
     });
   }
 }

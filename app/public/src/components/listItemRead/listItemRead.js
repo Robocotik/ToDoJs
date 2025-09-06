@@ -32,19 +32,8 @@ export default class ListItemRead extends Component {
     });
   }
 
-  randomNumber(max) {
-    return Math.floor(Math.random() * max);
-  }
-
   render() {
     this.parent.insertAdjacentHTML('beforeend', this.html);
-    this.setState(
-      this.state.length > 0
-        ? this.state
-        : `rgb(${this.randomNumber(256)}, ${this.randomNumber(256)}, ${this.randomNumber(256)})`,
-    );
-    
-    this.span.style.color = this.state;
     this.addEventListeners();
   }
 }
