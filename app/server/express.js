@@ -11,7 +11,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static('app/**'));
 app.use(express.static('app'));
 
 app.listen(5500, '127.0.0.1', () => {
