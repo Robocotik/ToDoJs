@@ -29,6 +29,6 @@ export default class Component {
   }
 
   html(context) {
-    return Handlebars.templates[`${this.templateName}.hbs`]({...this.props, ...context});
+    return Handlebars.templates[`${this.templateName}.hbs`](context);
   }
 }

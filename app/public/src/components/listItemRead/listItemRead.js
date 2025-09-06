@@ -20,20 +20,20 @@ export default class ListItemRead extends Component {
     this.self.remove();
   }
 
-  addEventListeners() {
+  addEventListeners(context) {
     this.deleteButton.addEventListener('click', () => {
       this.removeTodo();
     });
 
     this.span.addEventListener('dblclick', () => {
       const listItemEdit = new ListItemEdit(this.parent, this.props, this.state);
-      listItemEdit.render();
+      listItemEdit.render({...this.props, color: context.color});
       this.self.replaceWith(listItemEdit.self);
     });
   }
 
-  render() {
-    this.parent.insertAdjacentHTML('beforeend', this.html(this.state));
-    this.addEventListeners();
+  render(context) {
+    this.parent.insertAdjacentHTML('beforeend', this.html(context));
+    this.addEventListeners(context);
   }
 }

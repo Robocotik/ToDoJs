@@ -10,6 +10,7 @@ export default class ListItemEdit extends Component {
     return document.querySelector(`#listItemEdit-${this.props.id}`);
   }
   get saveBtn() {
+    console.log(this.props.id);
     return document.getElementById(`listItemEdit-${this.props.id}-save`);
   }
 
@@ -21,7 +22,7 @@ export default class ListItemEdit extends Component {
     return document.getElementById(`listItemEdit-${this.props.id}-input`);
   }
 
-  addEventListeners() {
+  addEventListeners(context) {
     this.saveBtn.addEventListener('click', () => {
       const val = this.input.value;
       const listItemRead = new ListItemRead(
@@ -29,7 +30,7 @@ export default class ListItemEdit extends Component {
         {id: this.props.id, text: val},
         this.state,
       );
-      listItemRead.render();
+      listItemRead.render({text: val, id: this.props.id, color: context.color});
       this.self.replaceWith(listItemRead.self);
     });
 
@@ -41,20 +42,21 @@ export default class ListItemEdit extends Component {
           {id: this.props.id, text: val},
           this.state,
         );
-        listItemRead.render();
+        listItemRead.render({id: this.props.id, text: val, color: context.color});
         this.self.replaceWith(listItemRead.self);
       }
     });
 
     this.cancelBtn.addEventListener('click', () => {
       const listItemRead = new ListItemRead(this.parent, this.props, this.state);
-      listItemRead.render();
+
+      listItemRead.render({...this.props, color: context.color});
       this.self.replaceWith(listItemRead.self);
     });
   }
 
-  render() {
-    this.parent.insertAdjacentHTML('beforeend', this.html(this.state));
-    this.addEventListeners();
+  render(context) {
+    this.parent.insertAdjacentHTML('beforeend', this.html(context));
+    this.addEventListeners(context);
   }
 }

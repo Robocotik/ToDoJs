@@ -18,42 +18,43 @@ export default class TodoList extends Component {
     return document.getElementById('add-todo-btn');
   }
 
-  addEventListeners() {
+  addEventListeners(context) {
     this.addTodoButton.addEventListener('click', () => {
-      this.addTodo();
+      this.addTodo(context);
     });
     this.addTodoInput.addEventListener('input', () => {
       this.addTodoButton.disabled = this.addTodoInput.value.length < 3;
     });
     this.addTodoInput.addEventListener('keydown', ({key}) => {
       if (key === 'Enter' && this.addTodoInput.value.length >= 3) {
-        this.addTodo();
+        this.addTodo(context);
       }
     });
   }
 
-  addTodo() {
+  addTodo(context) {
     this.setState({counter: this.state.counter + 1});
     const listItemRead = new ListItemRead(this.self, {
       id: this.state.counter,
       text: this.addTodoInput.value,
     });
-    listItemRead.render();
+    listItemRead.render({
+      ...this.state,
+      id: this.state.counter,
+      text: this.addTodoInput.value,
+      color: context.color,
+    });
     this.addTodoInput.value = '';
     this.addTodoButton.disabled = true;
   }
 
-  render() {
-    this.parent.insertAdjacentHTML('beforeend', this.html());
+  render(context) {
+    this.parent.insertAdjacentHTML('beforeend', this.html(context));
 
-    this.addEventListeners();
-
-    this.props.items.forEach(data => {
-      const listItemRead = new ListItemRead(this.self, data, {
-        color: getRandomColor(),
-      });
-      listItemRead.render();
-      this.setState({counter: this.state.counter + 1});
+    this.addEventListeners(context);
+    context.items.forEach(data => {
+      const listItemRead = new ListItemRead(this.self, data);
+      listItemRead.render({...data, color: getRandomColor()});
     });
   }
 }

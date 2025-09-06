@@ -9,7 +9,7 @@ export default class Container extends Component {
     return document.querySelector('#todo__container');
   }
 
-  render() {
-    this.parent.insertAdjacentHTML('beforeend', this.html());
+  render(context) {
+    this.parent.insertAdjacentHTML('beforeend', this.html(context));
   }
 }
