@@ -55,7 +55,6 @@ export default class ListItemEdit extends Component {
 
   render() {
     this.parent.insertAdjacentHTML('beforeend', this.html);
-    this.input.style.color = this.state.color;
     this.addEventListeners();
   }
 }
