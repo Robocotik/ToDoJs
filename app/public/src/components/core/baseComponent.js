@@ -28,7 +28,7 @@ export default class Component {
     return document.getElementById(this.props.id);
   }
 
-  get html() {
-    return Handlebars.templates[`${this.templateName}.hbs`]({...this.props, ...this.state});
+  html(context) {
+    return Handlebars.templates[`${this.templateName}.hbs`]({...this.props, ...context});
   }
 }

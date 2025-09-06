@@ -48,7 +48,7 @@ export default class TodoList extends Component {
   }
 
   render() {
-    this.parent.insertAdjacentHTML('beforeend', this.html);
+    this.parent.insertAdjacentHTML('beforeend', this.html());
 
     this.addEventListeners();
 

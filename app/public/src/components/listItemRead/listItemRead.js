@@ -33,7 +33,7 @@ export default class ListItemRead extends Component {
   }
 
   render() {
-    this.parent.insertAdjacentHTML('beforeend', this.html);
+    this.parent.insertAdjacentHTML('beforeend', this.html(this.state));
     this.addEventListeners();
   }
 }
