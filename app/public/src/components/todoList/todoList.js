@@ -1,6 +1,6 @@
 import Component from '../core/baseComponent.js';
 import ListItemRead from '../listItemRead/listItemRead.js';
-
+import getRandomColor from '../../../utils/getRandomColor.js';
 export default class TodoList extends Component {
   constructor(parent, props) {
     super(parent, props, 'todoList', {counter: 0});
@@ -43,10 +43,6 @@ export default class TodoList extends Component {
     this.addTodoButton.disabled = true;
   }
 
-  randomNumber(max) {
-    return Math.floor(Math.random() * max);
-  }
-
   render() {
     this.parent.insertAdjacentHTML('beforeend', this.html());
 
@@ -54,9 +50,7 @@ export default class TodoList extends Component {
 
     this.props.items.forEach(data => {
       const listItemRead = new ListItemRead(this.self, data, {
-        color: `rgb(${this.randomNumber(256)}, ${this.randomNumber(256)}, ${this.randomNumber(
-          256,
-        )})`,
+        color: getRandomColor(),
       });
       listItemRead.render();
       this.setState({counter: this.state.counter + 1});
