@@ -2,14 +2,15 @@ import Component from '../core/baseComponent.js';
 import ListItemRead from '../listItemRead/listItemRead.js';
 
 export default class TodoList extends Component {
-  constructor(parent, config) {
-    super(parent, config, 'todoList');
+  constructor(parent, props) {
+    super(parent, props, 'todoList');
     this.countOfItems = 0;
     this.addTodoButton = document.getElementById('add-todo-btn');
     this.addTodoInput = document.getElementById('todo-input');
   }
+  
   get self() {
-    return document.querySelector(`#TODO-list-${this.config.id}`);
+    return document.querySelector(`#TODO-list-${this.props.id}`);
   }
 
   addEventListeners() {
@@ -30,7 +31,7 @@ export default class TodoList extends Component {
     this.countOfItems++;
     const listItemRead = new ListItemRead(this.self, {
       id: this.countOfItems,
-      text: this.addTodoInput.value
+      text: this.addTodoInput.value,
     });
     listItemRead.render();
     this.addTodoInput.value = '';
@@ -42,7 +43,7 @@ export default class TodoList extends Component {
 
     this.addEventListeners();
 
-    this.config.items.forEach(data => {
+    this.props.items.forEach(data => {
       const listItemRead = new ListItemRead(this.self, data);
       listItemRead.render();
       this.countOfItems++;
