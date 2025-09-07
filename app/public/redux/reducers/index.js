@@ -1,7 +1,9 @@
 import {todoReducer} from './todo.js';
+import { countReducer } from './counter.js';
 
-export const reducer = (state, action) => {
+export const reducer = (state = {}, action) => {
   return {
-    ...todoReducer(state, action),
+    todos: todoReducer(state.todos, action),
+    count: countReducer(state.count, action),
   };
 };
