@@ -1,7 +1,7 @@
 import Component from '../core/baseComponent.js';
 import ListItemEdit from '../listItemEdit/listItemEdit.js';
-import { removeTodo as removeTodoAction } from '../../../redux/actionCreators/removeTodo.js';
-import { store } from '../../../redux/stores/index.js';
+import {removeTodo as removeTodoAction} from '../../../redux/actionCreators/removeTodo.js';
+import {store} from '../../../redux/stores/index.js';
 
 export default class ListItemRead extends Component {
   constructor(parent, props, state) {
@@ -24,20 +24,23 @@ export default class ListItemRead extends Component {
     store.dispatch(removeTodoAction(this.props.id));
   }
 
-  addEventListeners(context) {
+  addEventListeners() {
     this.deleteButton.addEventListener('click', () => {
       this.removeTodo();
     });
 
     this.span.addEventListener('dblclick', () => {
-      const listItemEdit = new ListItemEdit(this.parent, this.props, this.state);
-      listItemEdit.render({...this.props, color: context.color, text: context.text});
+      const listItemEdit = new ListItemEdit(this.parent, {text: this.props.text, id: this.props.id, color: this.props.color}, this.state);
+      listItemEdit.render();
       this.self.replaceWith(listItemEdit.self);
     });
   }
 
-  render(context) {
-    this.parent.insertAdjacentHTML('beforeend', this.html(context));
-    this.addEventListeners(context);
+  render() {
+    this.parent.insertAdjacentHTML(
+      'beforeend',
+      this.html({text: this.props.text, id: this.props.id, color: this.props.color}),
+    );
+    this.addEventListeners();
   }
 }

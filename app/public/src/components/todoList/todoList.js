@@ -41,20 +41,22 @@ export default class TodoList extends Component {
     const color = getRandomColor();
     const listItemRead = new ListItemRead(this.self, {
       id: store.getState().todos.length,
-    });
-    listItemRead.render({
-      id: store.getState().todos.length,
       text: this.addTodoInput.value,
       color: color,
     });
+    listItemRead.render();
     this.addTodoInput.value = '';
     this.addTodoButton.disabled = true;
   }
 
   initTodoList(context) {
     const color = getRandomColor();
-    const listItemRead = new ListItemRead(this.self, context);
-    listItemRead.render({...context, color: color});
+    const listItemRead = new ListItemRead(
+      this.self,
+      {text: context.text, id: context.id, color: color},
+      this.state,
+    );
+    listItemRead.render();
   }
 
   render() {

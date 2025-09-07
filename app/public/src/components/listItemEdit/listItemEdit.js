@@ -1,7 +1,7 @@
 import Component from '../core/baseComponent.js';
 import ListItemRead from '../listItemRead/listItemRead.js';
-import { updateTodo as updateTodoAction } from '../../../redux/actionCreators/updateTodo.js';
-import { store } from '../../../redux/stores/index.js';
+import {updateTodo as updateTodoAction} from '../../../redux/actionCreators/updateTodo.js';
+import {store} from '../../../redux/stores/index.js';
 
 export default class ListItemEdit extends Component {
   constructor(parent, props, state) {
@@ -23,36 +23,47 @@ export default class ListItemEdit extends Component {
     return document.getElementById(`listItemEdit-${this.props.id}-input`);
   }
 
-  updateTodo(context) {
+  updateTodo() {
     store.dispatch(updateTodoAction(this.props.id, this.input.value));
     const val = this.input.value;
-    const listItemRead = new ListItemRead(this.parent, {id: this.props.id, text: val}, this.state);
-    listItemRead.render({text: val, id: this.props.id, color: context.color});
+    const listItemRead = new ListItemRead(
+      this.parent,
+      {id: this.props.id, text: val, color: this.props.color},
+      this.state,
+    );
+    listItemRead.render();
     this.self.replaceWith(listItemRead.self);
   }
 
-  addEventListeners(context) {
+  addEventListeners() {
     this.saveBtn.addEventListener('click', () => {
-      this.updateTodo(context);
+      this.updateTodo();
     });
 
     this.input.addEventListener('keydown', ({key}) => {
       if (key === 'Enter' && this.input.value.length >= 3) {
-        this.updateTodo(context);
+        this.updateTodo();
       }
     });
 
     this.cancelBtn.addEventListener('click', () => {
-      const listItemRead = new ListItemRead(this.parent, this.props, this.state);
+      const listItemRead = new ListItemRead(
+        this.parent,
+        {text: this.props.text, id: this.props.id, color: this.props.color},
+        this.state,
+      );
 
-      listItemRead.render({...this.props, color: context.color});
+      listItemRead.render();
       this.self.replaceWith(listItemRead.self);
     });
   }
 
-  render(context) {
-    this.parent.insertAdjacentHTML('beforeend', this.html(context));
-    this.input.value = context.text;
-    this.addEventListeners(context);
+  render() {
+    this.parent.insertAdjacentHTML(
+      'beforeend',
+      this.html({text: this.props.text, id: this.props.id, color: this.props.color}),
+    );
+    this.input.value = this.props.text;
+    this.addEventListeners();
   }
 }
