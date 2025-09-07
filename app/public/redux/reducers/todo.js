@@ -1,6 +1,7 @@
-import {ADD, REMOVE} from '../consts/types.js';
+import {CREATE, DELETE, UPDATE} from '../consts/types.js';
 
 const initialState = {
+  id: 1,
   todos: [
     {id: 1, text: 'Walk the dog'},
     {id: 2, text: 'Water the plants'},
@@ -10,8 +11,9 @@ const initialState = {
 
 export const todoReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD: {
+    case CREATE: {
       return {
+        ...state,
         todos: [
           ...state.todos,
           {
@@ -21,9 +23,18 @@ export const todoReducer = (state = initialState, action) => {
         ],
       };
     }
-    case REMOVE: {
+    case DELETE: {
       return {
+        ...state,
         todos: [...state.todos.filter(todo => todo.id !== action.payload.id)],
+      };
+    }
+    case UPDATE: {
+      return {
+        ...state,
+        todos: state.todos.map(todo =>
+          todo.id === action.payload.id ? { ...todo, text: action.payload.text } : todo
+        ),
       };
     }
     default:

@@ -1,7 +1,8 @@
-import { REMOVE } from '../consts/types.js';
+import { DELETE } from '../consts/types.js';
+
 export const removeTodo = id => {
   return {
-    type: REMOVE,
+    type: DELETE,
     payload: {
       id: id,
     },

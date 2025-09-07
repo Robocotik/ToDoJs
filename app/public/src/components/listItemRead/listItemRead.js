@@ -1,5 +1,6 @@
 import Component from '../core/baseComponent.js';
 import ListItemEdit from '../listItemEdit/listItemEdit.js';
+import { removeTodo as removeTodoAction } from '../../../redux/actionCreators/removeTodo.js';
 export default class ListItemRead extends Component {
   constructor(parent, props, state) {
     super(parent, props, 'listItemRead', state);
@@ -18,6 +19,7 @@ export default class ListItemRead extends Component {
 
   removeTodo() {
     this.self.remove();
+    this.props.dispatch(removeTodoAction(this.props.id));
   }
 
   addEventListeners(context) {
@@ -26,7 +28,7 @@ export default class ListItemRead extends Component {
     });
 
     this.span.addEventListener('dblclick', () => {
-      const listItemEdit = new ListItemEdit(this.parent, this.props, this.state);
+      const listItemEdit = new ListItemEdit(this.parent, {...this.props, dispatch: this.props.dispatch}, this.state);
       listItemEdit.render({...this.props, color: context.color});
       this.self.replaceWith(listItemEdit.self);
     });

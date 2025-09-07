@@ -1,9 +1,10 @@
 import Component from '../core/baseComponent.js';
 import ListItemRead from '../listItemRead/listItemRead.js';
 import getRandomColor from '../../../utils/getRandomColor.js';
+import {addTodo as addTodoAction} from '../../../redux/actionCreators/addTodo.js';
 export default class TodoList extends Component {
   constructor(parent, props) {
-    super(parent, props, 'todoList', {counter: 0});
+    super(parent, props, 'todoList');
   }
 
   get self() {
@@ -33,28 +34,32 @@ export default class TodoList extends Component {
   }
 
   addTodo(context) {
-    this.setState({counter: this.state.counter + 1});
+    this.props.dispatch(addTodoAction(this.addTodoInput.value));
+    const color = getRandomColor();
     const listItemRead = new ListItemRead(this.self, {
-      id: this.state.counter,
-      text: this.addTodoInput.value,
+      id: context.getState().todos.length,
+      dispatch: this.props.dispatch,
     });
     listItemRead.render({
-      ...this.state,
-      id: this.state.counter,
+      id: context.getState().todos.length,
       text: this.addTodoInput.value,
-      color: context.color,
+      color: color,
     });
     this.addTodoInput.value = '';
     this.addTodoButton.disabled = true;
   }
 
-  render(context) {
-    this.parent.insertAdjacentHTML('beforeend', this.html(context));
+  initTodoList(context) {
+    const color = getRandomColor();
+    const listItemRead = new ListItemRead(this.self, context);
+    listItemRead.render({...context, color: color});
+  }
 
+  render(context) {
+    this.parent.insertAdjacentHTML('beforeend', this.html(context.getState()));
     this.addEventListeners(context);
-    context.items.forEach(data => {
-      const listItemRead = new ListItemRead(this.self, data);
-      listItemRead.render({...data, color: getRandomColor()});
+    context.getState().todos.forEach(data => {
+      this.initTodoList({...data, dispatch: this.props.dispatch});
     });
   }
 }
