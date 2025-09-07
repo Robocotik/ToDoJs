@@ -2,6 +2,8 @@ import Component from '../core/baseComponent.js';
 import ListItemRead from '../listItemRead/listItemRead.js';
 import getRandomColor from '../../../utils/getRandomColor.js';
 import {addTodo as addTodoAction} from '../../../redux/actionCreators/addTodo.js';
+import { store } from '../../../redux/stores/index.js';
+
 export default class TodoList extends Component {
   constructor(parent, props) {
     super(parent, props, 'todoList');
@@ -19,29 +21,28 @@ export default class TodoList extends Component {
     return document.getElementById('add-todo-btn');
   }
 
-  addEventListeners(context) {
+  addEventListeners() {
     this.addTodoButton.addEventListener('click', () => {
-      this.addTodo(context);
+      this.addTodo();
     });
     this.addTodoInput.addEventListener('input', () => {
       this.addTodoButton.disabled = this.addTodoInput.value.length < 3;
     });
     this.addTodoInput.addEventListener('keydown', ({key}) => {
       if (key === 'Enter' && this.addTodoInput.value.length >= 3) {
-        this.addTodo(context);
+        this.addTodo();
       }
     });
   }
 
-  addTodo(context) {
-    this.props.dispatch(addTodoAction(this.addTodoInput.value));
+  addTodo() {
+    store.dispatch(addTodoAction(this.addTodoInput.value));
     const color = getRandomColor();
     const listItemRead = new ListItemRead(this.self, {
-      id: context.getState().todos.length,
-      dispatch: this.props.dispatch,
+      id: store.getState().todos.length,
     });
     listItemRead.render({
-      id: context.getState().todos.length,
+      id: store.getState().todos.length,
       text: this.addTodoInput.value,
       color: color,
     });
@@ -55,11 +56,11 @@ export default class TodoList extends Component {
     listItemRead.render({...context, color: color});
   }
 
-  render(context) {
-    this.parent.insertAdjacentHTML('beforeend', this.html(context.getState()));
-    this.addEventListeners(context);
-    context.getState().todos.forEach(data => {
-      this.initTodoList({...data, dispatch: this.props.dispatch});
+  render() {
+    this.parent.insertAdjacentHTML('beforeend', this.html(store.getState()));
+    this.addEventListeners();
+    store.getState().todos.forEach(data => {
+      this.initTodoList({...data});
     });
   }
 }

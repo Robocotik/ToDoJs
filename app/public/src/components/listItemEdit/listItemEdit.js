@@ -1,6 +1,8 @@
 import Component from '../core/baseComponent.js';
 import ListItemRead from '../listItemRead/listItemRead.js';
 import { updateTodo as updateTodoAction } from '../../../redux/actionCreators/updateTodo.js';
+import { store } from '../../../redux/stores/index.js';
+
 export default class ListItemEdit extends Component {
   constructor(parent, props, state) {
     super(parent, props, 'listItemEdit', state);
@@ -22,9 +24,9 @@ export default class ListItemEdit extends Component {
   }
 
   updateTodo(context) {
-    this.props.dispatch(updateTodoAction(this.props.id, this.input.value));
+    store.dispatch(updateTodoAction(this.props.id, this.input.value));
     const val = this.input.value;
-    const listItemRead = new ListItemRead(this.parent, {id: this.props.id, text: val, dispatch: this.props.dispatch}, this.state);
+    const listItemRead = new ListItemRead(this.parent, {id: this.props.id, text: val}, this.state);
     listItemRead.render({text: val, id: this.props.id, color: context.color});
     this.self.replaceWith(listItemRead.self);
   }
@@ -50,6 +52,7 @@ export default class ListItemEdit extends Component {
 
   render(context) {
     this.parent.insertAdjacentHTML('beforeend', this.html(context));
+    this.input.value = context.text;
     this.addEventListeners(context);
   }
 }
