@@ -37,7 +37,6 @@ export default class TodoList extends Component {
 
   addTodo() {
     store.dispatch(addTodoAction(this.addTodoInput.value));
-    console.log(store.getState());
     const color = getRandomColor();
     const listItemRead = new ListItemRead(this.self, {
       id: store.getState().todos.length,
