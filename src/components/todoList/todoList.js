@@ -46,7 +46,7 @@ export default class TodoList extends Component {
     const color = getRandomColor();
     const listItemRead = new ListItemRead(this.self, {
       id: selectTodosLength(store.getState()),
-      text: selectTodoTextByTodo(store.getState(), selectTodoLast(store.getState())),
+      text: selectTodoLast(store.getState()).text,
       color: color,
     });
     listItemRead.render();
