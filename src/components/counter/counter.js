@@ -2,7 +2,7 @@ import Component from '../core/baseComponent.js';
 import {store} from '../../redux/store.js';
 import {incrementCounter} from '../../redux/actionCreators/counterActions.js';
 import {decrementCounter} from '../../redux/actionCreators/counterActions.js';
-import {selectCount} from '../selectors/index.js';
+import {selectCount} from '../../redux/selectors/index.js';
 export default class Counter extends Component {
   constructor(parent, props) {
     super(parent, props, 'counter');

@@ -3,7 +3,7 @@ import ListItemRead from '../listItemRead/listItemRead.js';
 import getRandomColor from '../../utils/getRandomColor.js';
 import {addTodo as addTodoAction} from '../../redux/actionCreators/todoActions.js';
 import {store} from '../../redux/store.js';
-import {selectTodosLength, selectTodoTextById, selectTodos} from '../selectors/index.js';
+import {selectTodosLength, selectTodoTextById, selectTodos} from '../../redux/selectors/index.js';
 
 export default class TodoList extends Component {
   constructor(parent, props) {
