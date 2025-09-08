@@ -12,7 +12,7 @@ export default class TodoCounter extends Component {
 
   addEventListeners() {
     store.subscribe(() => {
-      this.self.textContent = store.getState().todos.length;
+      this.self.textContent = store.getState().todos.length.toString();
     });
   }
 
