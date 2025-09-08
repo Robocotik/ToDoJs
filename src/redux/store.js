@@ -1,4 +1,4 @@
-import {reducer} from '../reducers/index.js';
+import {reducer} from './reducers/index.js';
 
 const createStore = reducer => {
   let state = reducer(undefined, {type: '__INIT__'});

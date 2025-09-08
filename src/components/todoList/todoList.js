@@ -1,8 +1,8 @@
 import Component from '../core/baseComponent.js';
 import ListItemRead from '../listItemRead/listItemRead.js';
-import getRandomColor from '../../../utils/getRandomColor.js';
-import {addTodo as addTodoAction} from '../../../redux/actionCreators/addTodo.js';
-import {store} from '../../../redux/stores/index.js';
+import getRandomColor from '../../utils/getRandomColor.js';
+import {addTodo as addTodoAction} from '../../redux/actionCreators/todoActions.js';
+import {store} from '../../redux/store.js';
 
 export default class TodoList extends Component {
   constructor(parent, props) {
@@ -59,7 +59,7 @@ export default class TodoList extends Component {
   }
 
   render() {
-    this.parent.insertAdjacentHTML('beforeend', this.html(store.getState()));
+    this.parent.insertAdjacentHTML('beforeend', this.html());
     this.addEventListeners();
     store.getState().todos.forEach(data => {
       this.initTodoList({...data});

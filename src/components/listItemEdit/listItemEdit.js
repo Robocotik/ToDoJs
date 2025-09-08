@@ -1,7 +1,7 @@
 import Component from '../core/baseComponent.js';
 import ListItemRead from '../listItemRead/listItemRead.js';
-import {updateTodo as updateTodoAction} from '../../../redux/actionCreators/updateTodo.js';
-import {store} from '../../../redux/stores/index.js';
+import {updateTodo as updateTodoAction} from '../../redux/actionCreators/todoActions.js';
+import {store} from '../../redux/store.js';
 
 export default class ListItemEdit extends Component {
   constructor(parent, props, state) {

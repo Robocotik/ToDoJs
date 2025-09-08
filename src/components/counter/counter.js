@@ -1,7 +1,7 @@
 import Component from '../core/baseComponent.js';
-import {store} from '../../../redux/stores/index.js';
-import {incrementCounter} from '../../../redux/actionCreators/increment.js';
-import {decrementCounter} from '../../../redux/actionCreators/decrement.js';
+import {store} from '../../redux/store.js';
+import {incrementCounter} from '../../redux/actionCreators/counterActions.js';
+import {decrementCounter} from '../../redux/actionCreators/counterActions.js';
 
 export default class Counter extends Component {
   constructor(parent, props) {
@@ -24,7 +24,7 @@ export default class Counter extends Component {
   }
 
   updateContent() {
-    this.content.textContent = store.getState().count;
+    this.content.textContent = store.getState().count.toString();
   }
 
   addEventListeners() {

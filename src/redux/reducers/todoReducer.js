@@ -1,4 +1,4 @@
-import {CREATE, DELETE, UPDATE} from '../consts/types.js';
+import {CREATE, DELETE, UPDATE} from '../consts/todoActionTypes.js';
 
 const initialState = [
   {id: 1, text: 'Walk the dog'},

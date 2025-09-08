@@ -1,8 +1,8 @@
 
-import TodoList from './public/src/components/todoList/todoList.js';
-import Container from './public/src/components/container/container.js';
-import TodoCounter from './public/src/components/todoCounter/todoCounter.js';
-import Counter from './public/src/components/counter/counter.js';
+import TodoList from './components/todoList/todoList.js';
+import Container from './components/container/container.js';
+import TodoCounter from './components/todoCounter/todoCounter.js';
+import Counter from './components/counter/counter.js';
 
 const root = document.getElementById('root');
 const container = new Container(root);

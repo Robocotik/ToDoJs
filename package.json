@@ -1,8 +1,8 @@
 {
   "type": "module",
   "scripts": {
-    "start": "npm run build && nodemon app/server/express.js -e html,js,css,hbs --ignore app/public/build",
-    "build": "npx globstar -- npx handlebars app/public/src/**/*.hbs -m -f app/public/build/precompiled.js"
+    "start": "npm run build && nodemon server/express.js -e html,js,css,hbs --ignore public/build",
+    "build": "npx globstar -- npx handlebars src/**/*.hbs -m -f public/build/precompiled.js"
   },
   "dependencies": {
     "express": "^5.1.0",

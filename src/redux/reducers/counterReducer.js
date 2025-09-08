@@ -1,4 +1,4 @@
-import {INCREMENT, DECREMENT} from '../consts/types.js';
+import {INCREMENT, DECREMENT} from '../consts/counterActionTypes.js';
 
 const initialState = 0
 

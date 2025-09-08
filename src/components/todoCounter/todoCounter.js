@@ -1,5 +1,5 @@
 import Component from '../core/baseComponent.js';
-import {store} from '../../../redux/stores/index.js';
+import {store} from '../../redux/store.js';
 
 export default class TodoCounter extends Component {
   constructor(parent, props) {

@@ -11,7 +11,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static('app'));
+app.use('/src', express.static('src'));
+// app.use('/build', express.static('public/build'));
+app.use(express.static('public'));
 
 app.listen(5500, '127.0.0.1', () => {
   console.log('Сервер запущен на http://127.0.0.1:5500');
