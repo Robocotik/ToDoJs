@@ -1,3 +1,4 @@
 export const selectTodos = state => state.todos;
 export const selectTodosLength = state => state.todos.length;
-export const selectTodoTextById = (state, id) => state.todos.find(todo => todo.id === id).text;
+export const selectTodoLast = state => state.todos[state.todos.length - 1];
+export const selectTodoTextByTodo = (state, todo) => state.todos.find(t => t.id === todo.id).text;
