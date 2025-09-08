@@ -1,5 +1,6 @@
 import Component from '../core/baseComponent.js';
 import {store} from '../../redux/store.js';
+import {selectTodosLength} from '../selectors/index.js';
 
 export default class TodoCounter extends Component {
   constructor(parent, props) {
@@ -12,12 +13,15 @@ export default class TodoCounter extends Component {
 
   addEventListeners() {
     store.subscribe(() => {
-      this.self.textContent = store.getState().todos.length.toString();
+      this.self.textContent = selectTodosLength(store.getState()).toString();
     });
   }
 
   render() {
-    this.parent.insertAdjacentHTML('beforeend', this.html({count: store.getState().todos.length}));
+    this.parent.insertAdjacentHTML(
+      'beforeend',
+      this.html({count: selectTodosLength(store.getState())}),
+    );
     this.addEventListeners();
   }
 }

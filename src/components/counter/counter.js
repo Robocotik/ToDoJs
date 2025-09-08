@@ -2,7 +2,7 @@ import Component from '../core/baseComponent.js';
 import {store} from '../../redux/store.js';
 import {incrementCounter} from '../../redux/actionCreators/counterActions.js';
 import {decrementCounter} from '../../redux/actionCreators/counterActions.js';
-
+import {selectCount} from '../selectors/index.js';
 export default class Counter extends Component {
   constructor(parent, props) {
     super(parent, props, 'counter');
@@ -24,7 +24,7 @@ export default class Counter extends Component {
   }
 
   updateContent() {
-    this.content.textContent = store.getState().count.toString();
+    this.content.textContent = selectCount(store.getState()).toString();
   }
 
   addEventListeners() {
@@ -40,7 +40,7 @@ export default class Counter extends Component {
   }
 
   render() {
-    this.parent.insertAdjacentHTML('beforeend', this.html({count: store.getState().count}));
+    this.parent.insertAdjacentHTML('beforeend', this.html({count: selectCount(store.getState())}));
     this.addEventListeners();
   }
 }

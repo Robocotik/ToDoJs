@@ -3,6 +3,7 @@ import ListItemRead from '../listItemRead/listItemRead.js';
 import getRandomColor from '../../utils/getRandomColor.js';
 import {addTodo as addTodoAction} from '../../redux/actionCreators/todoActions.js';
 import {store} from '../../redux/store.js';
+import {selectTodosLength, selectTodoTextById, selectTodos} from '../selectors/index.js';
 
 export default class TodoList extends Component {
   constructor(parent, props) {
@@ -39,8 +40,8 @@ export default class TodoList extends Component {
     store.dispatch(addTodoAction(this.addTodoInput.value));
     const color = getRandomColor();
     const listItemRead = new ListItemRead(this.self, {
-      id: store.getState().todos.length,
-      text: store.getState().todos[store.getState().todos.length - 1].text,
+      id: selectTodosLength(store.getState()),
+      text: selectTodoTextById(store.getState(), selectTodosLength(store.getState()) - 1),
       color: color,
     });
     listItemRead.render();
@@ -61,7 +62,7 @@ export default class TodoList extends Component {
   render() {
     this.parent.insertAdjacentHTML('beforeend', this.html());
     this.addEventListeners();
-    store.getState().todos.forEach(data => {
+    selectTodos(store.getState()).forEach(data => {
       this.initTodoList({...data});
     });
   }
